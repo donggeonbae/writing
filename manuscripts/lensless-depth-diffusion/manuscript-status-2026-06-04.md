@@ -5,7 +5,7 @@
 - Project ID: `lensless-depth-diffusion`
 - Working title: Physics-Integrated Latent Diffusion for Lensless Depth Estimation
 - Target venue: final graphics project report, short conference-paper style
-- Status: preliminary manuscript exists in working project; final metrics pending
+- Status: manuscript and PDF export updated with final v15 330k metrics
 - Related research notes: `../../research/notes/lensless-depth-diffusion/final-model-status-2026-06-04.md`
 - Related reviews: none yet
 - Related figures: `../../figure/figures/lensless-depth-diffusion/figure-set-2026-06-04.md`
@@ -20,7 +20,7 @@ PSF-stack deconvolution provides depth-dependent focus evidence, and integrating
 
 ## Abstract
 
-The working manuscript currently reports Ours v15, a physics-integrated latent diffusion model for depth estimation from synthetic lensless measurements. Current best full-test evidence uses the 225k-step checkpoint; the final 330k checkpoint has finished training and its full-test evaluation is running.
+The working manuscript reports Ours v15, a physics-integrated latent diffusion model for depth estimation from synthetic lensless measurements. Final full-test evidence uses the 330k-step checkpoint after 5.0 epochs.
 
 ## Introduction
 
@@ -54,16 +54,16 @@ Current setup:
 
 - Train: 66,000 RGB/depth pairs.
 - Test: 6,000 RGB/depth pairs.
-- Current reported Ours checkpoint candidate: v15 at 225,000 steps, approximately 3.41 epochs.
-- Active convergence run: v15 continuation reached 330,000 steps, equal to 5.0 epochs.
+- Current reported Ours checkpoint: v15 at 330,000 steps, equal to 5.0 epochs.
+- Active convergence run: complete.
 - Latest continuation checkpoint verified: 330,000 steps.
 - Latest train-log state observed: step 330,000.
 - 225k, 230k, and 235k full-test evaluations are complete as intermediate convergence checks.
-- A 4-GPU sharded full-test evaluation is running for the final 330k `latest.pt`.
+- A 4-GPU sharded full-test evaluation is complete for the final 330k `latest.pt`.
 
 ## Results
 
-Preliminary full-test result:
+Final full-test result:
 
 | Method | fg delta1 | fg delta2 | fg delta3 | fg MAE |
 | --- | ---: | ---: | ---: | ---: |
@@ -72,10 +72,11 @@ Preliminary full-test result:
 | Ours v15, 225k | 0.878 | 0.920 | 0.938 | 0.0536 |
 | Ours v15, 230k | 0.865 | 0.908 | 0.928 | 0.0561 |
 | Ours v15, 235k | 0.857 | 0.904 | 0.924 | 0.0600 |
+| Ours v15, 330k | 0.877 | 0.922 | 0.941 | 0.0515 |
 
 The supervised residual teacher reaches a higher reported delta3 in existing notes, but it is not the final `Ours` model because the project objective is physics-integrated diffusion.
 
-Current convergence signal: the 225k checkpoint has completed the 6,000-sample test evaluation with foreground delta3 0.938 and MAE 0.0536. The 230k and 235k full evaluations are weaker, so the running final 330k evaluation is the remaining check before changing or locking the final `Ours` row.
+Convergence signal: the 330k checkpoint improves over 225k on foreground delta2, delta3, MAE, AbsRel, RMSE, and boundary MAE, although 225k remains slightly better on foreground delta1. The final manuscript row is therefore `Ours v15, 330k`.
 
 ## Figure Plan
 
@@ -89,20 +90,20 @@ The manuscript figure set is maintained in `donggeonbae/figure` and should be up
 
 ## Discussion
 
-The current result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance gives measurable gains over static conditioning or mainly improves methodological alignment and interpretability.
+The final result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance can be made metric-dominant over simpler integrated diffusion or supervised teacher variants.
 
 ## Limitations
 
 - Measurements are currently synthetic rather than measured lensless raw captures.
-- Final 5epoch full-test metrics are not yet available.
-- 225k, 230k, and 235k intermediate full-test metrics are complete; the 330k full-test evaluation is running.
+- Final 5epoch full-test metrics are available.
+- 225k, 230k, 235k, and 330k full-test metrics are complete.
 - 98% target has not been verified by the diffusion model.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
 
 ## Conclusion
 
-The manuscript should report Ours as the best physics-integrated diffusion model, not the best supervised baseline. Final claims must be updated after the active 330k full-test evaluation completes.
+The manuscript reports Ours as the best physics-integrated diffusion model, not the best supervised baseline. The final reported checkpoint is v15 at 330k steps.
 
 ## Citation Gaps
 
@@ -115,8 +116,8 @@ The manuscript should report Ours as the best physics-integrated diffusion model
 
 - Full 6,000-sample evaluation of 225k checkpoint is complete.
 - Full 6,000-sample evaluations of 230k and 235k checkpoints are complete and weaker than 225k.
-- Full 6,000-sample evaluation of final 330k checkpoint.
-- Decide best v15 checkpoint for `Ours`.
-- Update paper table, poster table, figure captions, and HTML research note.
-- Rebuild the working paper PDF and presentation poster PDF after the selected checkpoint is fixed.
-- Replace `exports/main-prelim-2026-06-04.pdf` after final checkpoint metrics are written into the paper.
+- Full 6,000-sample evaluation of final 330k checkpoint is complete.
+- Best v15 checkpoint for `Ours` is 330k.
+- Paper table, poster table, figure captions, and HTML research note are updated.
+- Working paper PDF and presentation poster PDF are rebuilt.
+- `exports/main-prelim-2026-06-04.pdf` has been replaced after final checkpoint metrics were written into the paper.
