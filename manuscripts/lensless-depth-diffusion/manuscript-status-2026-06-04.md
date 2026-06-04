@@ -10,6 +10,7 @@
 - Related reviews: none yet
 - Related figures: `../../figure/figures/lensless-depth-diffusion/figure-set-2026-06-04.md`
 - Related presentation: `../../presentation/poster/lensless-depth-diffusion/poster-2026-06-04.md`
+- Current PDF export: `exports/main-prelim-2026-06-04.pdf`
 - HTML archive: `https://donggeonbae.github.io/writing/projects/lensless-depth-diffusion-manuscript-status/`
 - Canonical live status: `https://donggeonbae.github.io/research/projects/lensless-depth-diffusion-final-model-status/`
 
@@ -112,3 +113,4 @@ The manuscript should report Ours as the best physics-integrated diffusion model
 - Decide best v15 checkpoint for `Ours`.
 - Update paper table, poster table, figure captions, and HTML research note.
 - Rebuild the working paper PDF and presentation poster PDF after the selected checkpoint is fixed.
+- Replace `exports/main-prelim-2026-06-04.pdf` after final checkpoint metrics are written into the paper.
