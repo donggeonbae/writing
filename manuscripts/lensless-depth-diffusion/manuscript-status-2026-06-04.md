@@ -5,7 +5,7 @@
 - Project ID: `lensless-depth-diffusion`
 - Working title: Physics-Guided Depth Estimation for PSF-Stack Lensless Imaging
 - Target format: final graphics project report, short conference-paper style
-- Status: manuscript and poster updated with `Ours / Proposed` full-test metrics, rebuilt architecture figure, and real-adaptive deconvolution diagnostic
+- Status: manuscript and poster updated with `Ours / Proposed` full-test metrics, rebuilt architecture figure, explicit real-capture validation table, and real-adaptive deconvolution diagnostic
 - Current PDF export: `exports/main-prelim-2026-06-04.pdf`
 - HTML archive: `https://donggeonbae.github.io/writing/projects/lensless-depth-diffusion-manuscript-status/`
 - Canonical live status: `https://donggeonbae.github.io/research/projects/lensless-depth-diffusion-final-model-status/`
@@ -55,11 +55,13 @@ Final interpretation:
 
 These values use pseudo-depth labels only. `Ours-RealAdapt` is a diagnostic branch showing that measured captures need learnable deconvolution, not a replacement for the final diffusion model.
 
+![](real-validation-20250505.png)
+
 ## Figure Set
 
 | Figure | Manuscript role | Current status |
 | --- | --- | --- |
-| Architecture | Method overview | Rebuilt as deterministic figure with real PSF/raw/RGB/depth/deconv/focus/depth/output insets and visible latent encoder/decoder |
+| Architecture | Method overview | Rebuilt as deterministic figure with real PSF/raw/RGB/depth/deconv/focus/depth/output insets, real-validation diagnostic inset, and visible latent encoder/decoder |
 | Deconvolution focus planes | Physics evidence | Uses `z={14,22,30,38}`; excludes weak early planes |
 | Depth results | Qualitative comparison | Shows RGB, GT depth, physics baseline, and `Ours`; teacher/error omitted |
 | Real-data comparison | Domain-gap diagnostic | Shows pseudo labels, learned baselines, `Ours-RealAdapt`, and diffusion `Ours` |
@@ -75,5 +77,5 @@ These values use pseudo-depth labels only. `Ours-RealAdapt` is a diagnostic bran
 
 - Final full-6k diffusion evaluation completed across 4 GPU shards.
 - Paper and poster now use the final `Ours / Proposed` aggregate.
-- Architecture figure has been replaced in the paper, poster, and figure archive.
+- Architecture figure has been replaced in the paper, poster, and figure archive, with validation-only RealAdapt shown explicitly.
 - Final PDFs and encrypted HTML pages have been rebuilt after the latest text and metric update.
