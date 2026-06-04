@@ -5,7 +5,7 @@
 - Project ID: `lensless-depth-diffusion`
 - Working title: Physics-Integrated Latent Diffusion for Lensless Depth Estimation
 - Target venue: final graphics project report, short conference-paper style
-- Status: manuscript and PDF export updated with final v15 330k metrics
+- Status: manuscript and PDF export updated with final v15 330k metrics plus real-data pseudo-label comparison
 - Related research notes: `../../research/notes/lensless-depth-diffusion/final-model-status-2026-06-04.md`
 - Related reviews: none yet
 - Related figures: `../../figure/figures/lensless-depth-diffusion/figure-set-2026-06-04.md`
@@ -78,6 +78,15 @@ The supervised residual teacher reaches a higher reported delta3 in existing not
 
 Convergence signal: the 330k checkpoint improves over 225k on foreground delta2, delta3, MAE, AbsRel, RMSE, and boundary MAE, although 225k remains slightly better on foreground delta1. The final manuscript row is therefore `Ours v15, 330k`.
 
+Real-capture diagnostic:
+
+| Split | Samples | Best strict delta1 | Best loose delta3 | Ours delta1 | Ours delta3 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 20250505 real validation | 20 | FlatNet3D-style 0.428 | Physics focus 0.852 | 0.338 | 0.640 |
+| 20250527 real subset | 32 | Raw U-Net 0.288 | Physics focus 0.662 | 0.198 | 0.390 |
+
+These real-capture values use provided pseudo-depth labels, not independently measured GT depth. They are included as a domain-gap diagnostic rather than a replacement for the synthetic full-test table.
+
 ## Figure Plan
 
 The manuscript figure set is maintained in `donggeonbae/figure` and should be updated before replacing paper exports.
@@ -87,10 +96,11 @@ The manuscript figure set is maintained in `donggeonbae/figure` and should be up
 | Architecture | Method overview for latent diffusion plus PSF-Wiener posterior guidance | Keep latent encoder/decoder, denoising UNet, reverse guidance, and real PSF/raw/RGB/depth/output insets visible |
 | Deconvolution focus planes | Evidence that the stack carries depth-dependent focus | Use z=14,22,30,38 unless a new calibration makes early planes useful |
 | Depth results | Qualitative comparison | Use RGB, GT depth, physics-only focus, and Ours; omit teacher and pure error maps |
+| Real-data comparison | Domain-gap diagnostic | Show measured raw, pseudo labels, physics, supervised baselines, teacher, and Ours |
 
 ## Discussion
 
-The final result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance can be made metric-dominant over simpler integrated diffusion or supervised teacher variants.
+The final result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance can be made metric-dominant over simpler integrated diffusion or supervised teacher variants. The real-capture pseudo-label diagnostic also shows that synthetic-trained checkpoints do not transfer cleanly to measured raw captures without exposure/PSF calibration.
 
 ## Limitations
 
@@ -98,6 +108,7 @@ The final result supports the claim that deconvolution focus structure is a usef
 - Final 5epoch full-test metrics are available.
 - 225k, 230k, 235k, and 330k full-test metrics are complete.
 - 98% target has not been verified by the diffusion model.
+- Real-capture comparison currently uses pseudo labels and should be treated as a domain-gap diagnostic only.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
 
