@@ -57,8 +57,8 @@ Current setup:
 - Current reported Ours checkpoint: v15 at 195,000 steps, approximately 2.95 epochs.
 - Active convergence run: v15 continuation to 330,000 steps, equal to 5.0 epochs.
 - Latest continuation checkpoint verified: 225,000 steps.
-- Latest train-log state observed: approximately 229,700 steps.
-- 225k full-test evaluation is running as an intermediate convergence check.
+- Latest train-log state observed: step 304,180.
+- 225k, 230k, and 235k full-test evaluations are running as intermediate convergence checks.
 - A full-test watcher will evaluate the final 330k `latest.pt` after training exits.
 
 ## Results
@@ -71,6 +71,8 @@ Preliminary full-test result:
 | Ours v15, 195k | 0.871 | 0.913 | 0.930 | 0.0567 |
 
 The supervised residual teacher reaches a higher reported delta3 in existing notes, but it is not the final `Ours` model because the project objective is physics-integrated diffusion.
+
+Current partial convergence signal: the 225k checkpoint has reached 5,000/6,000 test samples with foreground delta3 0.937 and MAE 0.0538. The 230k and 235k partial evaluations are weaker so far, so full JSON completion is required before changing the final `Ours` row.
 
 ## Figure Plan
 
@@ -90,14 +92,14 @@ The current result supports the claim that deconvolution focus structure is a us
 
 - Measurements are currently synthetic rather than measured lensless raw captures.
 - Final 5epoch full-test metrics are not yet available.
-- 225k intermediate full-test metrics are not yet available.
+- 225k intermediate full-test metrics are partially available but not yet complete.
 - 98% target has not been verified by the diffusion model.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
 
 ## Conclusion
 
-The manuscript should report Ours as the best physics-integrated diffusion model, not the best supervised baseline. Final claims must be updated after the 225k and 330k full-test evaluations complete.
+The manuscript should report Ours as the best physics-integrated diffusion model, not the best supervised baseline. Final claims must be updated after the active 225k/230k/235k and 330k full-test evaluations complete.
 
 ## Citation Gaps
 
@@ -109,6 +111,7 @@ The manuscript should report Ours as the best physics-integrated diffusion model
 ## Verification Gaps
 
 - Full 6,000-sample evaluation of 225k checkpoint.
+- Full 6,000-sample evaluations of 230k and 235k checkpoints.
 - Full 6,000-sample evaluation of final 330k checkpoint.
 - Decide best v15 checkpoint for `Ours`.
 - Update paper table, poster table, figure captions, and HTML research note.
