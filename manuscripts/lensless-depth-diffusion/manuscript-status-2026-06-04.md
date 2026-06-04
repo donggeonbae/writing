@@ -10,6 +10,8 @@
 - Related reviews: none yet
 - Related figures: `../../figure/figures/lensless-depth-diffusion/figure-set-2026-06-04.md`
 - Related presentation: `../../presentation/poster/lensless-depth-diffusion/poster-2026-06-04.md`
+- HTML archive: `https://donggeonbae.github.io/writing/projects/lensless-depth-diffusion-manuscript-status/`
+- Canonical live status: `https://donggeonbae.github.io/research/projects/lensless-depth-diffusion-final-model-status/`
 
 ## Core Claim
 
@@ -53,7 +55,10 @@ Current setup:
 - Test: 6,000 RGB/depth pairs.
 - Current reported Ours checkpoint: v15 at 195,000 steps, approximately 2.95 epochs.
 - Active convergence run: v15 continuation to 330,000 steps, equal to 5.0 epochs.
+- Latest continuation checkpoint verified: 225,000 steps.
+- Latest train-log state observed: approximately 229,700 steps.
 - 225k full-test evaluation is running as an intermediate convergence check.
+- A full-test watcher will evaluate the final 330k `latest.pt` after training exits.
 
 ## Results
 
@@ -66,6 +71,16 @@ Preliminary full-test result:
 
 The supervised residual teacher reaches a higher reported delta3 in existing notes, but it is not the final `Ours` model because the project objective is physics-integrated diffusion.
 
+## Figure Plan
+
+The manuscript figure set is maintained in `donggeonbae/figure` and should be updated before replacing paper exports.
+
+| Figure | Manuscript role | Required update before final |
+| --- | --- | --- |
+| Architecture | Method overview for latent diffusion plus PSF-Wiener posterior guidance | Keep latent encoder/decoder, denoising UNet, reverse guidance, and real PSF/raw/RGB/depth/output insets visible |
+| Deconvolution focus planes | Evidence that the stack carries depth-dependent focus | Use z=14,22,30,38 unless a new calibration makes early planes useful |
+| Depth results | Qualitative comparison | Use RGB, GT depth, physics-only focus, and Ours; omit teacher and pure error maps |
+
 ## Discussion
 
 The current result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance gives measurable gains over static conditioning or mainly improves methodological alignment and interpretability.
@@ -74,6 +89,7 @@ The current result supports the claim that deconvolution focus structure is a us
 
 - Measurements are currently synthetic rather than measured lensless raw captures.
 - Final 5epoch full-test metrics are not yet available.
+- 225k intermediate full-test metrics are not yet available.
 - 98% target has not been verified by the diffusion model.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
@@ -95,3 +111,4 @@ The manuscript should report Ours as the best physics-integrated diffusion model
 - Full 6,000-sample evaluation of final 330k checkpoint.
 - Decide best v15 checkpoint for `Ours`.
 - Update paper table, poster table, figure captions, and HTML research note.
+- Rebuild the working paper PDF and presentation poster PDF after the selected checkpoint is fixed.
