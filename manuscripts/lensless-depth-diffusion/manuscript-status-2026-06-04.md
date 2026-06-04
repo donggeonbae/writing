@@ -20,7 +20,7 @@ PSF-stack deconvolution provides depth-dependent focus evidence, and integrating
 
 ## Abstract
 
-The working manuscript currently reports Ours v15, a physics-integrated latent diffusion model for depth estimation from synthetic lensless measurements. Current full-test evidence uses the 195k-step checkpoint; final 5epoch full-test evaluation is pending and should replace preliminary numbers before final submission.
+The working manuscript currently reports Ours v15, a physics-integrated latent diffusion model for depth estimation from synthetic lensless measurements. Current best full-test evidence uses the 225k-step checkpoint; final 5epoch full-test evaluation is pending and should replace or confirm these numbers before final submission.
 
 ## Introduction
 
@@ -54,11 +54,11 @@ Current setup:
 
 - Train: 66,000 RGB/depth pairs.
 - Test: 6,000 RGB/depth pairs.
-- Current reported Ours checkpoint: v15 at 195,000 steps, approximately 2.95 epochs.
+- Current reported Ours checkpoint candidate: v15 at 225,000 steps, approximately 3.41 epochs.
 - Active convergence run: v15 continuation to 330,000 steps, equal to 5.0 epochs.
 - Latest continuation checkpoint verified: 225,000 steps.
 - Latest train-log state observed: step 304,180.
-- 225k, 230k, and 235k full-test evaluations are running as intermediate convergence checks.
+- 225k full-test evaluation is complete; 230k and 235k full-test evaluations are still running as intermediate convergence checks.
 - A full-test watcher will evaluate the final 330k `latest.pt` after training exits.
 
 ## Results
@@ -69,10 +69,11 @@ Preliminary full-test result:
 | --- | ---: | ---: | ---: | ---: |
 | Physics-only focus/deconv | 0.391 | 0.617 | 0.816 | 0.214 |
 | Ours v15, 195k | 0.871 | 0.913 | 0.930 | 0.0567 |
+| Ours v15, 225k | 0.878 | 0.920 | 0.938 | 0.0536 |
 
 The supervised residual teacher reaches a higher reported delta3 in existing notes, but it is not the final `Ours` model because the project objective is physics-integrated diffusion.
 
-Current partial convergence signal: the 225k checkpoint has reached 5,000/6,000 test samples with foreground delta3 0.937 and MAE 0.0538. The 230k and 235k partial evaluations are weaker so far, so full JSON completion is required before changing the final `Ours` row.
+Current convergence signal: the 225k checkpoint has completed the 6,000-sample test evaluation with foreground delta3 0.938 and MAE 0.0536. The 230k and 235k partial evaluations are weaker so far, so their full JSON completion and the final 330k evaluation are required before changing the final `Ours` row.
 
 ## Figure Plan
 
@@ -92,7 +93,7 @@ The current result supports the claim that deconvolution focus structure is a us
 
 - Measurements are currently synthetic rather than measured lensless raw captures.
 - Final 5epoch full-test metrics are not yet available.
-- 225k intermediate full-test metrics are partially available but not yet complete.
+- 225k intermediate full-test metrics are complete; later checkpoints are still pending.
 - 98% target has not been verified by the diffusion model.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
@@ -110,7 +111,7 @@ The manuscript should report Ours as the best physics-integrated diffusion model
 
 ## Verification Gaps
 
-- Full 6,000-sample evaluation of 225k checkpoint.
+- Full 6,000-sample evaluation of 225k checkpoint is complete.
 - Full 6,000-sample evaluations of 230k and 235k checkpoints.
 - Full 6,000-sample evaluation of final 330k checkpoint.
 - Decide best v15 checkpoint for `Ours`.
