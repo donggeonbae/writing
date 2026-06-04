@@ -56,9 +56,9 @@ Current setup:
 - Test: 6,000 RGB/depth pairs.
 - Current reported Ours checkpoint candidate: v15 at 225,000 steps, approximately 3.41 epochs.
 - Active convergence run: v15 continuation to 330,000 steps, equal to 5.0 epochs.
-- Latest continuation checkpoint verified: 225,000 steps.
-- Latest train-log state observed: step 304,180.
-- 225k full-test evaluation is complete; 230k and 235k full-test evaluations are still running as intermediate convergence checks.
+- Latest continuation checkpoint verified: 325,000 steps.
+- Latest train-log state observed: step 327,360.
+- 225k, 230k, and 235k full-test evaluations are complete as intermediate convergence checks.
 - A full-test watcher will evaluate the final 330k `latest.pt` after training exits.
 
 ## Results
@@ -70,10 +70,12 @@ Preliminary full-test result:
 | Physics-only focus/deconv | 0.391 | 0.617 | 0.816 | 0.214 |
 | Ours v15, 195k | 0.871 | 0.913 | 0.930 | 0.0567 |
 | Ours v15, 225k | 0.878 | 0.920 | 0.938 | 0.0536 |
+| Ours v15, 230k | 0.865 | 0.908 | 0.928 | 0.0561 |
+| Ours v15, 235k | 0.857 | 0.904 | 0.924 | 0.0600 |
 
 The supervised residual teacher reaches a higher reported delta3 in existing notes, but it is not the final `Ours` model because the project objective is physics-integrated diffusion.
 
-Current convergence signal: the 225k checkpoint has completed the 6,000-sample test evaluation with foreground delta3 0.938 and MAE 0.0536. The 230k and 235k partial evaluations are weaker so far, so their full JSON completion and the final 330k evaluation are required before changing the final `Ours` row.
+Current convergence signal: the 225k checkpoint has completed the 6,000-sample test evaluation with foreground delta3 0.938 and MAE 0.0536. The 230k and 235k full evaluations are weaker, so only the final 330k evaluation remains before changing or locking the final `Ours` row.
 
 ## Figure Plan
 
@@ -93,14 +95,14 @@ The current result supports the claim that deconvolution focus structure is a us
 
 - Measurements are currently synthetic rather than measured lensless raw captures.
 - Final 5epoch full-test metrics are not yet available.
-- 225k intermediate full-test metrics are complete; later checkpoints are still pending.
+- 225k, 230k, and 235k intermediate full-test metrics are complete; the 330k checkpoint is still pending.
 - 98% target has not been verified by the diffusion model.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
 
 ## Conclusion
 
-The manuscript should report Ours as the best physics-integrated diffusion model, not the best supervised baseline. Final claims must be updated after the active 225k/230k/235k and 330k full-test evaluations complete.
+The manuscript should report Ours as the best physics-integrated diffusion model, not the best supervised baseline. Final claims must be updated after the active 330k full-test evaluation completes.
 
 ## Citation Gaps
 
@@ -112,7 +114,7 @@ The manuscript should report Ours as the best physics-integrated diffusion model
 ## Verification Gaps
 
 - Full 6,000-sample evaluation of 225k checkpoint is complete.
-- Full 6,000-sample evaluations of 230k and 235k checkpoints.
+- Full 6,000-sample evaluations of 230k and 235k checkpoints are complete and weaker than 225k.
 - Full 6,000-sample evaluation of final 330k checkpoint.
 - Decide best v15 checkpoint for `Ours`.
 - Update paper table, poster table, figure captions, and HTML research note.
