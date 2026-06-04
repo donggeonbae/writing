@@ -1,4 +1,4 @@
-# AGENTS.md
+﻿# AGENTS.md
 
 ## Purpose
 
@@ -6,11 +6,11 @@ This repository is for LaTeX-based academic paper writing. Use it to develop man
 
 Related repositories:
 
-- `Ramblue/research`: shared research materials, source maps, reading queues, datasets, and reusable notes.
-- `Ramblue/review`: structured paper reviews, evidence extraction, critique, and strict manuscript review.
-- `Ramblue/figure`: paper figures, diagrams, visual explanations, Figma assets, and image-generation workflows.
-- `Ramblue/writing`: LaTeX manuscript drafting, venue templates, citation integration, strict review loops, and submission preparation.
-- `Ramblue/presentation`: meeting decks, literature review decks, conference talks, posters, and speaker scripts.
+- `donggeonbae/research`: shared research materials, source maps, reading queues, datasets, and reusable notes.
+- `donggeonbae/review`: structured paper reviews, evidence extraction, critique, and strict manuscript review.
+- `donggeonbae/figure`: paper figures, diagrams, visual explanations, Figma assets, and image-generation workflows.
+- `donggeonbae/writing`: LaTeX manuscript drafting, venue templates, citation integration, strict review loops, and submission preparation.
+- `donggeonbae/presentation`: meeting decks, literature review decks, conference talks, posters, and speaker scripts.
 
 ## Repository Role
 
@@ -26,7 +26,7 @@ Use this repository for:
 - submission checklists
 - final figure placement, captions, and cross-references
 
-Do not use this repository as the main place for raw source collection, detailed paper critique, figure asset generation, or presentation production. Put those in `Ramblue/research`, `Ramblue/review`, `Ramblue/figure`, and `Ramblue/presentation`.
+Do not use this repository as the main place for raw source collection, detailed paper critique, figure asset generation, or presentation production. Put those in `donggeonbae/research`, `donggeonbae/review`, `donggeonbae/figure`, and `donggeonbae/presentation`.
 
 ## Project Orientation
 
@@ -34,8 +34,8 @@ Before writing or revising:
 
 1. Identify the target manuscript, venue or journal, audience, and current draft state.
 2. Search for the official venue or journal template when the target venue is known.
-3. Check `Ramblue/research` for source notes and `Ramblue/review` for reviewed evidence.
-4. Check `Ramblue/figure` for figure specs, assets, captions, and export status.
+3. Check `donggeonbae/research` for source notes and `donggeonbae/review` for reviewed evidence.
+4. Check `donggeonbae/figure` for figure specs, assets, captions, and export status.
 5. Confirm whether the task is ideation, outlining, drafting, editing, citation integration, strict review, or submission preparation.
 6. Keep claims traceable to evidence.
 
@@ -46,7 +46,7 @@ Before writing or revising:
 - `bibliography/`: Shared `.bib` files, citation notes, and citation audits.
 - `outlines/`: Standalone outlines and argument maps.
 - `sections/`: Reusable or independently drafted sections.
-- `figures/`: Final exported figure files copied or linked from `Ramblue/figure`.
+- `figures/`: Final exported figure files copied or linked from `donggeonbae/figure`.
 - `tables/`: Table plans and source-backed tabular evidence.
 - `reviews/`: Strict internal review reports for manuscripts.
 - `responses/`: Response letters and reviewer rebuttal drafts.
@@ -79,14 +79,14 @@ When a manuscript targets a specific conference or journal:
 ## Evidence and Citation Rules
 
 - Every substantive factual, methodological, or comparative claim should be supported by a source note, review, citation, internal result, or figure spec.
-- Prefer reviewed evidence from `Ramblue/review` before using raw notes from `Ramblue/research`.
+- Prefer reviewed evidence from `donggeonbae/review` before using raw notes from `donggeonbae/research`.
 - Mark placeholders clearly with `TODO`, `CITATION NEEDED`, `VERIFY`, or `SOURCE NEEDED`.
 - Do not fabricate citations, page numbers, venues, results, author claims, or reviewer comments.
 - Separate manuscript text from planning notes.
 
 ## Figure Integration Rules
 
-- Generate and iterate figure assets in `Ramblue/figure`.
+- Generate and iterate figure assets in `donggeonbae/figure`.
 - Store final manuscript-ready exports under this repository only when needed for LaTeX build stability.
 - Every figure should have a source spec, intended claim, caption draft, and export format.
 - Check that figure labels, captions, and manuscript references match.
@@ -94,7 +94,7 @@ When a manuscript targets a specific conference or journal:
 
 ## Strict Review Loop
 
-Use `Ramblue/review` as the strict paper-review agent for manuscript drafts.
+Use `donggeonbae/review` as the strict paper-review agent for manuscript drafts.
 
 For internal reviews, ask for:
 
@@ -154,6 +154,24 @@ Before finishing writing work, verify:
 - limitations are acknowledged where appropriate
 - unresolved issues are marked explicitly
 
+## Static HTML Archive Framework
+
+This repository follows the source-derived encrypted static HTML archive pattern adapted from `Lukael/research`.
+
+Framework files:
+
+- `index.html`: public archive index.
+- `styles/site.css`: shared dark archive styling.
+- `scripts/site.js`: discovers `projects/<slug>/` folders through the GitHub Contents API or local directory listing.
+- `scripts/decrypt-report.js`: unlocks `projects/<slug>/report.enc` in the browser using Web Crypto.
+- `scripts/encrypt-report.js`: encrypts plaintext HTML into `report.enc` using `REPORT_PASSWORD`.
+- `scripts/build-markdown-report.js`: builds a project unlock shell and optional encrypted report from Markdown.
+- `scripts/build-3dgs-ri-report.js`: source-derived example builder kept for reference; prefer `build-markdown-report.js` for new work.
+- `templates/unlock-template.html`: public password unlock shell.
+- `templates/report-template.html`: dark two-column encrypted report body template.
+- `projects/<slug>/`: public unlock shell plus encrypted payload for each protected report.
+
+Do not commit plaintext protected report bodies under `projects/`. Use `build/` for transient plaintext output and keep encrypted payloads in `projects/<slug>/report.enc` when a report should be published.
 ## Agent Behavior
 
 When acting as an AI writing agent:
@@ -164,3 +182,6 @@ When acting as an AI writing agent:
 - Use strict review feedback rather than softening it.
 - Do not invent evidence, citations, templates, or submission rules.
 - Report what changed, what evidence supports it, and what still needs verification.
+
+
+
