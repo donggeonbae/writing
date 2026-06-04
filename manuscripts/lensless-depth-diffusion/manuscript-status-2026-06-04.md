@@ -5,7 +5,7 @@
 - Project ID: `lensless-depth-diffusion`
 - Working title: Physics-Integrated Latent Diffusion for Lensless Depth Estimation
 - Target venue: final graphics project report, short conference-paper style
-- Status: manuscript and PDF export updated with final v15 330k metrics plus real-data pseudo-label comparison
+- Status: manuscript and PDF export updated with final v15 330k metrics plus real-adaptive learnable deconvolution diagnostics
 - Related research notes: `../../research/notes/lensless-depth-diffusion/final-model-status-2026-06-04.md`
 - Related reviews: none yet
 - Related figures: `../../figure/figures/lensless-depth-diffusion/figure-set-2026-06-04.md`
@@ -45,6 +45,7 @@ The final method should be described compactly:
 - Conditional latent denoising model.
 - DAPS-lite posterior guidance/refinement during reverse diffusion.
 - Depth-guided RGB plane fusion for reconstruction checks.
+- Real-capture diagnostic branch: learnable Wiener inverse plus residual artifact adapter trained against pseudo labels.
 
 Avoid describing Ours as simply `deconv + UNet`.
 
@@ -60,6 +61,7 @@ Current setup:
 - Latest train-log state observed: step 330,000.
 - 225k, 230k, and 235k full-test evaluations are complete as intermediate convergence checks.
 - A 4-GPU sharded full-test evaluation is complete for the final 330k `latest.pt`.
+- `Ours-RealAdapt` real-capture diagnostic trained for 30 epochs; best checkpoint selected at epoch 15 by 20250505 pseudo-label foreground MAE.
 
 ## Results
 
@@ -78,14 +80,14 @@ The supervised residual teacher reaches a higher reported delta3 in existing not
 
 Convergence signal: the 330k checkpoint improves over 225k on foreground delta2, delta3, MAE, AbsRel, RMSE, and boundary MAE, although 225k remains slightly better on foreground delta1. The final manuscript row is therefore `Ours v15, 330k`.
 
-Real-capture diagnostic:
+Real-capture diagnostic after the learnable deconvolution update:
 
-| Split | Samples | Best strict delta1 | Best loose delta3 | Ours delta1 | Ours delta3 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| 20250505 real validation | 20 | FlatNet3D-style 0.428 | Physics focus 0.852 | 0.338 | 0.640 |
-| 20250527 real subset | 32 | Raw U-Net 0.288 | Physics focus 0.662 | 0.198 | 0.390 |
+| Split | Samples | Physics focus MAE / d1 / d3 | Diffusion Ours MAE / d1 / d3 | Ours-RealAdapt MAE / d1 / d3 |
+| --- | ---: | ---: | ---: | ---: |
+| 20250505 real validation | 20 | 0.230 / 0.294 / 0.852 | 0.365 / 0.337 / 0.639 | 0.264 / 0.382 / 0.648 |
+| 20250527 real subset | 32 | 0.291 / 0.218 / 0.662 | 0.419 / 0.198 / 0.390 | 0.177 / 0.363 / 0.692 |
 
-These real-capture values use provided pseudo-depth labels, not independently measured GT depth. They are included as a domain-gap diagnostic rather than a replacement for the synthetic full-test table.
+These real-capture values use provided pseudo-depth labels, not independently measured GT depth. They are included as a domain-gap diagnostic rather than a replacement for the synthetic full-test table. `Ours-RealAdapt` is the response to the validation artifact issue: it makes the PSF inverse learnable and suppresses fixed deconvolution artifacts, but it is not relabeled as the final diffusion `Ours`.
 
 ## Figure Plan
 
@@ -96,11 +98,11 @@ The manuscript figure set is maintained in `donggeonbae/figure` and should be up
 | Architecture | Method overview for latent diffusion plus PSF-Wiener posterior guidance | Keep latent encoder/decoder, denoising UNet, reverse guidance, and real PSF/raw/RGB/depth/output insets visible |
 | Deconvolution focus planes | Evidence that the stack carries depth-dependent focus | Use z=14,22,30,38 unless a new calibration makes early planes useful |
 | Depth results | Qualitative comparison | Use RGB, GT depth, physics-only focus, and Ours; omit teacher and pure error maps |
-| Real-data comparison | Domain-gap diagnostic | Show measured raw, pseudo labels, physics, supervised baselines, teacher, and Ours |
+| Real-data comparison | Domain-gap diagnostic | Show measured raw, pseudo labels, physics, supervised baselines, teacher, Ours-RealAdapt, and diffusion Ours |
 
 ## Discussion
 
-The final result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance can be made metric-dominant over simpler integrated diffusion or supervised teacher variants. The real-capture pseudo-label diagnostic also shows that synthetic-trained checkpoints do not transfer cleanly to measured raw captures without exposure/PSF calibration.
+The final result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance can be made metric-dominant over simpler integrated diffusion or supervised teacher variants. The real-capture pseudo-label diagnostic also shows that synthetic-trained checkpoints do not transfer cleanly to measured raw captures without exposure/PSF calibration. The learnable deconvolution update reduces this failure mode on pseudo labels, especially on the 20250527 real subset, but it should be described as real-domain adaptation rather than as proof of diffusion superiority.
 
 ## Limitations
 
@@ -109,6 +111,7 @@ The final result supports the claim that deconvolution focus structure is a usef
 - 225k, 230k, 235k, and 330k full-test metrics are complete.
 - 98% target has not been verified by the diffusion model.
 - Real-capture comparison currently uses pseudo labels and should be treated as a domain-gap diagnostic only.
+- `Ours-RealAdapt` improves real pseudo-label alignment, but it is supervised real-domain fitting and does not replace the diffusion-method row.
 - Architecture figure is currently a bitmap and may need vector redraw for final readability.
 - Some related-work citation metadata still needs final verification.
 
@@ -132,3 +135,4 @@ The manuscript reports Ours as the best physics-integrated diffusion model, not 
 - Paper table, poster table, figure captions, and HTML research note are updated.
 - Working paper PDF and presentation poster PDF are rebuilt.
 - `exports/main-prelim-2026-06-04.pdf` has been replaced after final checkpoint metrics were written into the paper.
+- Real-capture figures and manuscript discussion are updated with `Ours-RealAdapt`.
