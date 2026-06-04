@@ -1,0 +1,97 @@
+# Manuscript: Lensless Depth Diffusion
+
+## Metadata
+
+- Project ID: `lensless-depth-diffusion`
+- Working title: Physics-Integrated Latent Diffusion for Lensless Depth Estimation
+- Target venue: final graphics project report, short conference-paper style
+- Status: preliminary manuscript exists in working project; final metrics pending
+- Related research notes: `../../research/notes/lensless-depth-diffusion/final-model-status-2026-06-04.md`
+- Related reviews: none yet
+- Related figures: `../../figure/figures/lensless-depth-diffusion/figure-set-2026-06-04.md`
+- Related presentation: `../../presentation/poster/lensless-depth-diffusion/poster-2026-06-04.md`
+
+## Core Claim
+
+PSF-stack deconvolution provides depth-dependent focus evidence, and integrating that physics into a latent diffusion depth model yields substantially better depth estimates than physics-only focus scoring while preserving the project objective of physics-aware diffusion.
+
+## Abstract
+
+The working manuscript currently reports Ours v15, a physics-integrated latent diffusion model for depth estimation from synthetic lensless measurements. Current full-test evidence uses the 195k-step checkpoint; final 5epoch full-test evaluation is pending and should replace preliminary numbers before final submission.
+
+## Introduction
+
+The introduction should motivate lensless depth estimation as a problem where the measurement is governed by a depth-dependent PSF stack. The key gap is that static deconvolution or supervised restoration does not directly answer how physics should affect the diffusion reverse process.
+
+## Related Work
+
+Citation groups to verify before final submission:
+
+- MWDNs and Wiener/deconvolution-based lensless restoration.
+- FlatNet3D and supervised lensless 3D reconstruction.
+- Marigold and DiffusionDepth for diffusion-based depth priors.
+- DiffBIR, StableSR, and related restoration diffusion methods as contrastive examples, not direct templates.
+
+## Method
+
+The final method should be described compactly:
+
+- Synthetic lensless measurement generation from RGB, depth, and a 42-plane PSF stack.
+- PSF-stack Wiener deconvolution volume and focus-derived features.
+- Latent depth autoencoder.
+- Conditional latent denoising model.
+- DAPS-lite posterior guidance/refinement during reverse diffusion.
+- Depth-guided RGB plane fusion for reconstruction checks.
+
+Avoid describing Ours as simply `deconv + UNet`.
+
+## Experiments or Analysis
+
+Current setup:
+
+- Train: 66,000 RGB/depth pairs.
+- Test: 6,000 RGB/depth pairs.
+- Current reported Ours checkpoint: v15 at 195,000 steps, approximately 2.95 epochs.
+- Active convergence run: v15 continuation to 330,000 steps, equal to 5.0 epochs.
+- 225k full-test evaluation is running as an intermediate convergence check.
+
+## Results
+
+Preliminary full-test result:
+
+| Method | fg delta1 | fg delta2 | fg delta3 | fg MAE |
+| --- | ---: | ---: | ---: | ---: |
+| Physics-only focus/deconv | 0.391 | 0.617 | 0.816 | 0.214 |
+| Ours v15, 195k | 0.871 | 0.913 | 0.930 | 0.0567 |
+
+The supervised residual teacher reaches a higher reported delta3 in existing notes, but it is not the final `Ours` model because the project objective is physics-integrated diffusion.
+
+## Discussion
+
+The current result supports the claim that deconvolution focus structure is a useful depth cue and that a latent diffusion prior can regularize it. The main unresolved question is whether the reverse-diffusion posterior guidance gives measurable gains over static conditioning or mainly improves methodological alignment and interpretability.
+
+## Limitations
+
+- Measurements are currently synthetic rather than measured lensless raw captures.
+- Final 5epoch full-test metrics are not yet available.
+- 98% target has not been verified by the diffusion model.
+- Architecture figure is currently a bitmap and may need vector redraw for final readability.
+- Some related-work citation metadata still needs final verification.
+
+## Conclusion
+
+The manuscript should report Ours as the best physics-integrated diffusion model, not the best supervised baseline. Final claims must be updated after the 225k and 330k full-test evaluations complete.
+
+## Citation Gaps
+
+- Verify exact MWDNs citation metadata.
+- Verify FlatNet3D citation metadata and dataset/method claims.
+- Verify Marigold, DiffusionDepth, DiffBIR, StableSR, and HYPIR citations.
+- Add access dates for code repositories used as method context.
+
+## Verification Gaps
+
+- Full 6,000-sample evaluation of 225k checkpoint.
+- Full 6,000-sample evaluation of final 330k checkpoint.
+- Decide best v15 checkpoint for `Ours`.
+- Update paper table, poster table, figure captions, and HTML research note.
