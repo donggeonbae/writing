@@ -61,7 +61,7 @@ These values use pseudo-depth labels only. `Ours-RealAdapt` is a diagnostic bran
 
 | Figure | Manuscript role | Current status |
 | --- | --- | --- |
-| Architecture | Method overview | Rebuilt as deterministic figure with real PSF/raw/RGB/depth/deconv/focus/depth/output insets, real-validation diagnostic inset, and visible latent encoder/decoder |
+| Architecture | Method overview | Rebuilt with `imagegen` as a polished schematic showing PSF-Wiener physics, latent encoder/decoder, reverse-step correction, output fusion, and validation-only RealAdapt diagnostic |
 | Deconvolution focus planes | Physics evidence | Uses `z={14,22,30,38}`; excludes weak early planes |
 | Depth results | Qualitative comparison | Shows RGB, GT depth, physics baseline, and `Ours`; teacher/error omitted |
 | Real-data comparison | Domain-gap diagnostic | Shows pseudo labels, learned baselines, `Ours-RealAdapt`, and diffusion `Ours` |
