@@ -19,6 +19,7 @@ PSF-stack deconvolution provides depth-dependent focus evidence. The final `LDLD
 The manuscript should describe `LDLDM` compactly:
 
 - Synthetic lensless measurement from RGB, depth, and a 42-plane PSF stack.
+- Physical depth scale: 4--70 cm.
 - PSF-stack Wiener deconvolution and focus-posterior features.
 - Latent depth VAE encoder/decoder.
 - Conditional latent denoising U-Net.
@@ -55,8 +56,8 @@ The current manuscript is scoped to synthetic train/test evaluation. Real-captur
 | Figure | Manuscript role | Current status |
 | --- | --- | --- |
 | Architecture | Method overview | Uses the synthetic LDLDM architecture figure with PSF-Wiener physics, latent encoder/decoder, diffusion denoising, and output fusion |
-| Figure 2: deconvolution focus planes | Physics evidence | Split into a large two-column figure using `z={14,22,30,38}`; excludes weak early planes |
-| Figure 3: depth comparison | Qualitative comparison | Separate two-column comparison showing RGB, GT depth, physics baseline, and `LDLDM`; teacher/error omitted |
+| Figure 2: deconvolution focus planes | Physics evidence | Split into a large two-column figure using `z={14,22,30,38}`; placed at the top of page 4 before Table 3 |
+| Figure 3: depth comparison | Qualitative comparison | Separate one-column comparison showing RGB, GT depth, physics baseline, and `LDLDM`; teacher/error omitted |
 
 ## Discussion Points
 
@@ -70,5 +71,6 @@ The current manuscript is scoped to synthetic train/test evaluation. Real-captur
 - Shared synthetic-test diffusion evaluation completed.
 - Paper and poster now use the final `LDLDM` aggregate.
 - Architecture figure has been replaced in the paper, poster, and figure archive.
-- Paper Figure 2 and Figure 3 are now separated into two-column wide figures.
+- Paper Figure 2 is a two-column wide deconvolution figure; Figure 3 is a one-column comparison figure.
+- Page 4 now starts with Figure 2 and then Table 3.
 - Final PDFs and encrypted HTML pages have been rebuilt after the latest text and metric update.
