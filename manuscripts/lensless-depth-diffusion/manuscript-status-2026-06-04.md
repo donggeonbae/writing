@@ -48,26 +48,27 @@ Final interpretation:
 
 ## Scope Note
 
-The current manuscript is scoped to synthetic train/test evaluation. Real-capture experiments are treated as diagnostic material and are not included in the final comparison table.
+The current manuscript is scoped to synthetic train/test evaluation. Real-capture validation is left as the next step for demonstrating practical effectiveness and is not included in the final comparison table.
 
 ## Figure Set
 
 | Figure | Manuscript role | Current status |
 | --- | --- | --- |
 | Architecture | Method overview | Uses the synthetic LDLDM architecture figure with PSF-Wiener physics, latent encoder/decoder, diffusion denoising, and output fusion |
-| Deconvolution focus planes | Physics evidence | Uses `z={14,22,30,38}`; excludes weak early planes |
-| Depth results | Qualitative comparison | Shows RGB, GT depth, physics baseline, and `LDLDM`; teacher/error omitted |
+| Figure 2: deconvolution focus planes | Physics evidence | Split into a large two-column figure using `z={14,22,30,38}`; excludes weak early planes |
+| Figure 3: depth comparison | Qualitative comparison | Separate two-column comparison showing RGB, GT depth, physics baseline, and `LDLDM`; teacher/error omitted |
 
 ## Discussion Points
 
 - The deconvolution volume is the strongest representation across all non-diffusion and diffusion variants.
 - `LDLDM` is methodologically aligned with the project objective, but not SOTA on this dataset.
 - The current gap is mainly calibration and boundary ambiguity.
-- Real captures require learnable inverse filtering and exposure/PSF calibration.
+- The next validation step is to test measured lensless captures with calibrated exposure, sensor noise, and PSF alignment.
 
 ## Verification Status
 
 - Shared synthetic-test diffusion evaluation completed.
 - Paper and poster now use the final `LDLDM` aggregate.
 - Architecture figure has been replaced in the paper, poster, and figure archive.
+- Paper Figure 2 and Figure 3 are now separated into two-column wide figures.
 - Final PDFs and encrypted HTML pages have been rebuilt after the latest text and metric update.
